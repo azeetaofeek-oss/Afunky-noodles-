@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Order noodles, yam and egg, bread with egg and sardines, grilled fish, and more tasty meals from Afunky Noodles." />
+  <title>Afunky Noodles | Tasty Meals for Every Craving</title>
+  <style>
+    :root {
+      --orange: #f36b21;
+      --orange-dark: #d9510e;
+      --ink: #24211f;
+      --muted: #716b66;
+      --cream: #fff8f0;
+      --white: #ffffff;
+      --green: #16794b;
+      --border: #f0e5db;
+      --shadow: 0 12px 35px rgba(55, 34, 15, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Inter, Arial, sans-serif; color: var(--ink); background: #fff; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    .topbar { background: var(--ink); color: #fff; text-align: center; padding: 9px 14px; font-size: .88rem; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav { max-width: 1120px; margin: auto; padding: 15px 22px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.15rem; text-decoration: none; color: var(--ink); }
+    .brand-mark { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: var(--orange); color: white; font-size: 1.45rem; }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-links a { color: var(--ink); text-decoration: none; font-weight: 700; font-size: .93rem; }
+    .cart-button, .primary-btn { border: 0; border-radius: 999px; background: var(--orange); color: white; padding: 12px 18px; font-weight: 800; transition: .2s; }
+    .cart-button:hover, .primary-btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .hero { background: var(--cream); overflow: hidden; }
+    .hero-inner { max-width: 1120px; margin: auto; padding: 64px 22px 70px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 35px; }
+    .eyebrow { display: inline-block; background: #ffe5d3; color: #a9420c; border-radius: 999px; padding: 8px 12px; font-weight: 800; font-size: .82rem; }
+    h1 { font-size: clamp(2.7rem, 5vw, 4.8rem); line-height: 1.02; letter-spacing: -.055em; margin: 18px 0; }
+    h1 span { color: var(--orange); }
+    .hero p { color: var(--muted); font-size: 1.08rem; line-height: 1.7; max-width: 510px; }
+    .hero-actions { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; margin-top: 25px; }
+    .secondary-btn { display: inline-block; border: 1px solid #e5d6c8; border-radius: 999px; padding: 12px 18px; text-decoration: none; color: var(--ink); font-weight: 800; background: white; }
+    .hero-art { min-height: 340px; display: grid; place-items: center; position: relative; }
+    .food-circle { width: min(370px, 78vw); aspect-ratio: 1; border-radius: 50%; background: #ffd5ae; display: grid; place-items: center; font-size: clamp(8rem, 19vw, 13rem); box-shadow: inset 0 0 0 18px rgba(255,255,255,.32); transform: rotate(-7deg); }
+    .floating-note { position: absolute; bottom: 18px; left: 0; background: white; padding: 13px 16px; border-radius: 17px; box-shadow: var(--shadow); font-weight: 800; }
+    .floating-note small { display: block; color: var(--muted); font-weight: 500; margin-top: 4px; }
+    .section { max-width: 1120px; margin: auto; padding: 68px 22px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 28px; }
+    .section-heading h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); letter-spacing: -.04em; margin: 0 0 8px; }
+    .section-heading p { color: var(--muted); margin: 0; line-height: 1.5; }
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .food-card { border: 1px solid var(--border); border-radius: 22px; overflow: hidden; background: white; transition: .2s; }
+    .food-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .food-photo { height: 185px; display: grid; place-items: center; font-size: 5rem; background: linear-gradient(135deg, #fff0df, #ffe0c5); overflow: hidden; }
+    .food-photo img { width:100%; height:100%; display:block; object-fit:cover; }
+    .payment-details { background:#fff4e9; border:1px solid #ffd7b8; border-radius:14px; padding:14px; margin:16px 0; line-height:1.7; }
+    .food-photo.pink { background: linear-gradient(135deg, #ffe8e3, #ffc8ba); }
+    .food-photo.green { background: linear-gradient(135deg, #e6f3d9, #c8e7ad); }
+    .food-photo.yellow { background: linear-gradient(135deg, #fff5c9, #ffe28b); }
+    .food-photo.purple { background: linear-gradient(135deg, #f0e4ff, #d9c2ff); }
+    .food-info { padding: 18px; }
+    .food-info h3 { margin: 0 0 8px; font-size: 1.12rem; }
+    .food-info p { color: var(--muted); line-height: 1.5; font-size: .92rem; min-height: 42px; margin: 0 0 15px; }
+    .food-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .price { font-size: 1.12rem; font-weight: 900; }
+    .add-btn { border: 0; background: var(--ink); color: white; border-radius: 12px; padding: 10px 13px; font-weight: 800; }
+    .add-btn:hover { background: var(--orange); }
+    .features { background: var(--cream); }
+    .feature-grid { max-width: 1120px; margin: auto; padding: 36px 22px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feature { display: flex; gap: 13px; align-items: flex-start; }
+    .feature-icon { background: white; border-radius: 14px; padding: 12px; font-size: 1.5rem; }
+    .feature h3 { margin: 2px 0 7px; font-size: 1rem; }
+    .feature p { margin: 0; color: var(--muted); line-height: 1.5; font-size: .9rem; }
+    footer { background: var(--ink); color: white; padding: 28px 22px; }
+    .footer-inner { max-width: 1120px; margin: auto; display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; color: #e6ddd6; font-size: .9rem; }
+    .footer-inner strong { color: white; }
+    .cart-panel { position: fixed; z-index: 30; inset: 0 0 0 auto; width: min(430px, 100%); background: white; box-shadow: -20px 0 60px rgba(0,0,0,.16); transform: translateX(110%); transition: transform .25s ease; display: flex; flex-direction: column; }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-head { display: flex; justify-content: space-between; align-items: center; padding: 22px; border-bottom: 1px solid var(--border); }
+    .cart-head h2 { margin: 0; }
+    .close-btn { border: 0; background: #f6eee8; border-radius: 50%; width: 38px; height: 38px; font-size: 1.3rem; }
+    .cart-items { padding: 18px 22px; overflow-y: auto; flex: 1; }
+    .empty-cart { text-align: center; padding: 45px 10px; color: var(--muted); }
+    .cart-row { display: flex; justify-content: space-between; gap: 14px; border-bottom: 1px solid var(--border); padding: 14px 0; }
+    .cart-row h4 { margin: 0 0 7px; }
+    .cart-row small { color: var(--muted); }
+    .qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 9px; }
+    .qty-controls button { width: 28px; height: 28px; border: 1px solid var(--border); background: white; border-radius: 8px; font-weight: 900; }
+    .cart-foot { padding: 20px 22px; border-top: 1px solid var(--border); }
+    .total-line { display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 900; margin-bottom: 15px; }
+    .checkout-btn { width: 100%; padding: 14px; border: 0; background: var(--green); color: white; border-radius: 13px; font-weight: 900; }
+    .checkout-btn:disabled { opacity: .45; cursor: not-allowed; }
+    .overlay { display: none; position: fixed; z-index: 20; inset: 0; background: rgba(25,20,17,.45); }
+    .overlay.show { display: block; }
+    .modal { display: none; position: fixed; z-index: 40; inset: 0; padding: 18px; align-items: center; justify-content: center; background: rgba(25,20,17,.5); }
+    .modal.show { display: flex; }
+    .modal-card { width: min(520px, 100%); max-height: 92vh; overflow-y: auto; background: white; border-radius: 22px; padding: 25px; }
+    .modal-card h2 { margin: 0 0 8px; }
+    .modal-card > p { color: var(--muted); margin: 0 0 20px; line-height: 1.5; }
+    .form-grid { display: grid; gap: 13px; }
+    .form-grid label { font-size: .9rem; font-weight: 800; display: grid; gap: 7px; }
+    .form-grid input, .form-grid textarea, .form-grid select { width: 100%; padding: 12px; border: 1px solid #e5d9cf; border-radius: 11px; outline-color: var(--orange); }
+    .form-grid textarea { min-height: 78px; resize: vertical; }
+    .form-note { color: var(--muted); font-size: .82rem; line-height: 1.45; margin-top: 12px; }
+    @media (max-width: 760px) {
+      .nav { padding: 12px 16px; }
+      .nav-links { gap: 13px; }
+      .nav-links a { display: none; }
+      .hero-inner { grid-template-columns: 1fr; padding-top: 42px; gap: 10px; }
+      .hero-art { min-height: 270px; }
+      .food-circle { width: 250px; font-size: 9rem; }
+      .floating-note { left: 5%; bottom: 4px; }
+      .section { padding: 50px 16px; }
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+      .food-photo { height: 135px; font-size: 3.7rem; }
+      .food-info { padding: 13px; }
+      .food-info p { font-size: .84rem; min-height: 60px; }
+      .food-bottom { align-items: flex-start; flex-direction: column; }
+      .add-btn { width: 100%; }
+      .feature-grid { grid-template-columns: 1fr; padding: 30px 18px; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 390px) { .menu-grid { grid-template-columns: 1fr; } .food-photo { height: 165px; } .food-info p { min-height: 0; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">Freshly made, full of flavour 🍜🍳🐟 &nbsp; | &nbsp; Order your favourites today</div>
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#home"><span class="brand-mark">🍜</span><span>Afunky Noodles</span></a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">Why us</a>
+        <button class="cart-button" id="openCart" type="button">🛒 Cart (<span id="cartCount">0</span>)</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">GOOD FOOD, GOOD MOOD ✨</span>
+          <h1>Your food<br>cravings, <span>sorted.</span></h1>
+          <p>From tasty noodles and yam with egg to bread with egg and sardines, grilled fish and other delicious cooked meals, there’s something for every craving at Afunky Noodles.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#menu" style="text-decoration:none">Explore our menu →</a>
+            <a class="secondary-btn" href="#about">Why Afunky?</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a bowl of noodles">
+          <div class="food-circle">🍜🍳</div>
+          <div class="floating-note">Made fresh for you <small>Big flavour in every bite</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="section-heading">
+        <div><h2>Our tasty menu</h2><p>Noodles, yam, bread, grilled fish and more. Pick your favourites and add them to your cart.</p></div>
+        <span class="eyebrow">MADE FRESH DAILY</span>
+      </div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </section>
+
+    <section class="features" id="about">
+      <div class="feature-grid">
+        <div class="feature"><span class="feature-icon">🥬</span><div><h3>Fresh ingredients</h3><p>Prepared with tasty ingredients and lots of care.</p></div></div>
+        <div class="feature"><span class="feature-icon">⚡</span><div><h3>Quick ordering</h3><p>Choose your meal and send your order on WhatsApp.</p></div></div>
+        <div class="feature"><span class="feature-icon">❤️</span><div><h3>Made with love</h3><p>Tasty meals and satisfying bites to brighten up your day.</p></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="footer-inner"><span><strong>Afunky Noodles</strong> — noodles, yam, bread, grilled fish and more.</span><span>WhatsApp: 07081851165 / 08038084081</span><span>© <span id="year"></span> Afunky Noodles. All rights reserved.</span></div></footer>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-panel" id="cartPanel" aria-label="Shopping cart" aria-modal="true">
+    <div class="cart-head"><h2>Your cart 🛒</h2><button class="close-btn" id="closeCart" aria-label="Close cart">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot"><div class="total-line"><span>Total</span><span id="cartTotal">₦0</span></div><button class="checkout-btn" id="checkoutBtn" disabled>Continue to checkout</button></div>
+  </aside>
+
+  <div class="modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 id="checkoutTitle">Delivery details</h2><button class="close-btn" id="closeCheckout" aria-label="Close checkout">×</button></div>
+      <p>Fill in your details. Your order will be prepared as a WhatsApp message for Afunky Noodles.</p>
+      <div class="payment-details"><strong>Bank transfer payment</strong><br>Bank: OPay<br>Account name: Funky Aduke<br>Account number: <strong>7081851165</strong><br><small>Please confirm your order with us on WhatsApp before making payment.</small></div>
+      <form class="form-grid" id="checkoutForm">
+        <label>Full name<input name="customerName" required placeholder="Your name" autocomplete="name"></label>
+        <label>Phone number<input name="phone" required type="tel" placeholder="e.g. 08012345678" autocomplete="tel"></label>
+        <label>Delivery address<textarea name="address" required placeholder="House number, street, area"></textarea></label>
+        <label>How will you receive your order?
+          <select name="delivery" id="deliveryChoice"><option value="Delivery">Delivery</option><option value="Pickup">Pickup</option></select>
+        </label>
+        <label>Extra instructions (optional)<textarea name="notes" placeholder="Spice preference or other instructions"></textarea></label>
+        <button class="checkout-btn" type="submit">Send order on WhatsApp</button>
+      </form>
+      <div class="form-note">Menu prices are examples; update them to your actual prices and confirm delivery charges with customers before publishing.</div>
+    </div>
+  </div>
+
+  <script>
+    // EDIT THESE MENU ITEMS AND PRICES TO MATCH YOUR BUSINESS.
+    const menuItems = [
+      { id: 1, name: "Classic Afunky Noodles", price: 1500, emoji: "🍜", image: "images/noodles.jpg", style: "", description: "Tasty signature noodles with a rich, savoury flavour." },
+      { id: 2, name: "Yam & Egg", price: 2500, emoji: "🍠", image: "images/yam-egg.jpg", style: "yellow", description: "Soft yam served with delicious egg sauce." },
+      { id: 3, name: "Bread, Egg & Sardines", price: 2500, emoji: "🍞", image: "images/bread-egg-sardines.jpg", style: "pink", description: "A filling bread combo with egg and sardines." },
+      { id: 4, name: "Roasted Grilled Fish", price: 5000, emoji: "🐟", image: "images/grilled-fish.jpg", style: "green", description: "Flavourful grilled fish, perfect for a satisfying meal." },
+      { id: 5, name: "Spicy Chicken Noodles", price: 3000, emoji: "🍗", image: "images/noodles.jpg", style: "yellow", description: "Noodles with chicken and a spicy kick." },
+      { id: 6, name: "Afunky Special Cooked Meal", price: 3500, emoji: "🍲", image: "images/cooked-food.jpg", style: "purple", description: "Ask us about today's freshly prepared cooked-food options." },
+      { id: 7, name: "Egg Sauce & Yam", price: 2800, emoji: "🍳", image: "images/yam-egg.jpg", style: "yellow", description: "Yam served with rich, freshly prepared egg sauce." },
+      { id: 8, name: "Grilled Fish Special", price: 6500, emoji: "🔥", image: "images/grilled-fish.jpg", style: "pink", description: "A special grilled fish option. Ask about today's availability." },
+      { id: 9, name: "Vegetable Noodles", price: 2200, emoji: "🥦", image: "images/noodles.jpg", style: "green", description: "Noodles tossed with colourful vegetables." }
+    ];
+
+    // IMPORTANT: Replace this with your WhatsApp business number.
+    // Use country code, with no + sign, spaces, or leading zero. Example Nigeria: 2348012345678
+    const WHATSAPP_NUMBER = "2347081851165";
+    const ALTERNATE_WHATSAPP_NUMBER = "2348038084081";
+
+    const cart = {};
+    const naira = amount => "₦" + amount.toLocaleString("en-NG");
+    const menuGrid = document.getElementById("menuGrid");
+    const cartPanel = document.getElementById("cartPanel");
+    const overlay = document.getElementById("overlay");
+    const checkoutModal = document.getElementById("checkoutModal");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function renderMenu() {
+      menuGrid.innerHTML = menuItems.map(item => `
+        <article class="food-card">
+          <div class="food-photo ${item.style}"><img src="${item.image}" alt="${item.name}" loading="lazy" onerror="this.parentElement.textContent='${item.emoji}';"></div>
+          <div class="food-info">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            <div class="food-bottom"><span class="price">${naira(item.price)}</span>
+              <button class="add-btn" type="button" onclick="addToCart(${item.id})">+ Add to cart</button>
+            </div>
+          </div>
+        </article>`).join("");
+    }
+
+    function addToCart(id) {
+      cart[id] = (cart[id] || 0) + 1;
+      renderCart();
+    }
+
+    function changeQuantity(id, delta) {
+      cart[id] = (cart[id] || 0) + delta;
+      if (cart[id] <= 0) delete cart[id];
+      renderCart();
+    }
+
+    function renderCart() {
+      const entries = menuItems.filter(item => cart[item.id]);
+      const count = entries.reduce((sum, item) => sum + cart[item.id], 0);
+      const total = entries.reduce((sum, item) => sum + item.price * cart[item.id], 0);
+      document.getElementById("cartCount").textContent = count;
+      document.getElementById("cartTotal").textContent = naira(total);
+      document.getElementById("checkoutBtn").disabled = count === 0;
+      const cartItems = document.getElementById("cartItems");
+      if (!entries.length) {
+        cartItems.innerHTML = '<div class="empty-cart"><div style="font-size:3rem">🛍️</div><h3>Your cart is empty</h3><p>Add something delicious from our menu.</p></div>';
+        return;
+      }
+      cartItems.innerHTML = entries.map(item => `
+        <div class="cart-row">
+          <div><h4>${item.emoji} ${item.name}</h4><small>${naira(item.price)} each</small>
+            <div class="qty-controls">
+              <button type="button" aria-label="Remove one ${item.name}" onclick="changeQuantity(${item.id}, -1)">−</button>
+              <strong>${cart[item.id]}</strong>
+              <button type="button" aria-label="Add one ${item.name}" onclick="changeQuantity(${item.id}, 1)">+</button>
+            </div>
+          </div>
+          <strong>${naira(item.price * cart[item.id])}</strong>
+        </div>`).join("");
+    }
+
+    function openCart() { cartPanel.classList.add("open"); overlay.classList.add("show"); }
+    function closeCart() { cartPanel.classList.remove("open"); overlay.classList.remove("show"); }
+    function openCheckout() { closeCart(); checkoutModal.classList.add("show"); }
+    function closeCheckout() { checkoutModal.classList.remove("show"); }
+
+    document.getElementById("openCart").addEventListener("click", openCart);
+    document.getElementById("closeCart").addEventListener("click", closeCart);
+    overlay.addEventListener("click", closeCart);
+    document.getElementById("checkoutBtn").addEventListener("click", openCheckout);
+    document.getElementById("closeCheckout").addEventListener("click", closeCheckout);
+    checkoutModal.addEventListener("click", event => { if (event.target === checkoutModal) closeCheckout(); });
+
+    document.getElementById("checkoutForm").addEventListener("submit", event => {
+      event.preventDefault();
+      if (!menuItems.some(item => cart[item.id])) return;
+      const form = new FormData(event.currentTarget);
+      const entries = menuItems.filter(item => cart[item.id]);
+      const total = entries.reduce((sum, item) => sum + item.price * cart[item.id], 0);
+      const orderLines = entries.map(item => `• ${item.name} x ${cart[item.id]} = ${naira(item.price * cart[item.id])}`).join("\\n");
+      const message = [
+        "Hello Afunky Noodles! I'd like to place an order:",
+        "",
+        orderLines,
+        "",
+        `Total: ${naira(total)}`,
+        `Name: ${form.get("customerName")}`,
+        `Phone: ${form.get("phone")}`,
+        `${form.get("delivery") === "Pickup" ? "Pickup preference" : "Delivery address"}: ${form.get("address")}`,
+        `Order type: ${form.get("delivery")}`,
+        `Extra instructions: ${form.get("notes") || "None"}`,
+        "",
+        "Please confirm availability and delivery fee. Thank you!"
+      ].join("\\n");
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    });
+
+    renderMenu();
+    renderCart();
+  </script>
+</body>
+</html>
